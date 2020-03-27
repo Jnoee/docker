@@ -12,7 +12,7 @@ wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerr
 wget https://obs.cn-south-1.myhuaweicloud.com/report/${GLIBC_FILE} && \
 apk add ${GLIBC_FILE} && \
 rm -rf *.apk && \
-rm -rf /var/cache/apk/* \
+rm -rf /var/cache/apk/* && \
 wget https://obs.cn-south-1.myhuaweicloud.com/report/${JAVA_FILE} && \
 tar xvf ${JAVA_FILE} && mkdir ${JAVA_DIR} && mv ${JAVA_NAME} ${JAVA_DIR}/. && rm -f ${JAVA_FILE}
 

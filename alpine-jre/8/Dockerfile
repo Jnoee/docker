@@ -8,7 +8,7 @@ ENV JAVA_FILE server-jre-8u241-linux-x64.tar.gz
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
 ENV LIB_REPO https://obs.cn-south-1.myhuaweicloud.com/report
-EVN GLIBC_FILE glibc-2.31-r0.apk
+ENV GLIBC_FILE glibc-2.31-r0.apk
 ENV GLIBC_BIN_FILE glibc-bin-2.31-r0.apk
 ENV GLIBC_I18_FILE glibc-i18n-2.31-r0.apk
 

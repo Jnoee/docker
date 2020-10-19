@@ -12,7 +12,9 @@ EVN GLIBC_FILE glibc-2.31-r0.apk
 ENV GLIBC_BIN_FILE glibc-bin-2.31-r0.apk
 ENV GLIBC_I18_FILE glibc-i18n-2.31-r0.apk
 
-RUN apk --no-cache add bash ca-certificates wget && \
+COPY ./locale.md /locale.md
+RUN cat locale.md | xargs -i /usr/glibc-compat/bin/localedef -i {} -f UTF-8 {}.UTF-8  && \
+apk --no-cache add bash ca-certificates wget && \
 wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
 wget ${LIB_REPO}/${GLIBC_FILE} && wget ${LIB_REPO}/${GLIBC_BIN_FILE} && wget ${LIB_REPO}/${GLIBC_I18_FILE} && \
 apk add ${GLIBC_FILE} ${GLIBC_BIN_FILE} ${GLIBC_I18_FILE} && \

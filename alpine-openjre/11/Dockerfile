@@ -1,18 +1,15 @@
+FROM jnoee/alpine:3.11 as jre
+
+RUN apk --no-cache add openjdk11-jdk openjdk11-jmods; \
+	/usr/lib/jvm/java-11-openjdk/bin/jlink --no-header-files --no-man-pages --compress=0 --strip-debug \
+    --add-modules java.base,java.logging,jdk.unsupported \
+    --output /opt/openjdk/jre;
+
 FROM jnoee/alpine:3.11
 
-ENV JAVA_DIR="/usr/java/"
-ENV JAVA_NAME="openjre"
-ENV JAVA_HOME ${JAVA_DIR}/${JAVA_NAME}
+COPY --from=jre /opt/openjdk/jre /opt/openjdk/jre
 
-ENV JDK_HOME="/usr/lib/jvm/default-jvm/"
-ENV JDK_NAME="openjdk11"
-
-ENV PATH ${PATH}:${JAVA_HOME}/bin
-
-RUN apk add ${JDK_NAME} && \
-${JDK_HOME}/bin/jlink --no-header-files --no-man-pages --compress=0 --strip-debug \
---add-modules java.base,java.logging,jdk.unsupported \
---output ${JAVA_HOME} && \
-rm -rf ${JDK_HOME}
+ENV JAVA_HOME=/opt/openjdk/jre \
+    PATH="/opt/openjdk/jre/lib:/opt/openjdk/jre/bin:$PATH"
 
 CMD ["/bin/bash"]
